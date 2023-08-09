@@ -153,17 +153,17 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="backimg">
-                        <img class="back" src="{{profile.back_img.url}}">
+                        <img class="back" src="{{profile.back_img.url}}" id="filePreview">
                         <div class="imgg">
-                            <input class="input" type="file" name="backimg" id="">
-                            <img src="{% static 'img/kindpng_7945427.png' %}" alt="">
+                            <input class="input" type="file" accept="image/*" name="backimg" id="fileInput">
+                            <img src="{% static 'img/kindpng_7945427.png' %}">
                         </div>
 
                         <div class="profileimg">
-                            <img class="prof" src="{{profile.profile_img.url}}">
+                            <img class="prof" src="{{profile.profile_img.url}}" id="filePreview">
                             <div class="imggg">
-                                <input class="input" type="file" name="profileim" id="">
-                                <img src="{% static 'img/kindpng_7945427.png' %}" alt="">
+                                <input class="input" type="file" accept="image/*" name="profileim" id="fileInput">
+                                <img src="{% static 'img/kindpng_7945427.png' %}">
                             </div>
                         </div>
                     </div>
@@ -258,6 +258,21 @@
         function Drop(){
             drop.classList.toggle("nav_show")
         }
+
+        function previewFile() {
+        var fileInput = document.getElementById("fileInput");
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function() {
+            var preview = document.getElementById("filePreview");
+            preview.src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener("change", previewFile);
     </script>
 </body>
 </html>
